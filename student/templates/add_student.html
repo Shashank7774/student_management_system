@@ -1,0 +1,502 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 55px 20px;
+
+    background:
+        radial-gradient(circle at 10% 15%,
+            rgba(59, 130, 246, 0.18),
+            transparent 28%),
+        radial-gradient(circle at 90% 15%,
+            rgba(168, 85, 247, 0.14),
+            transparent 28%),
+        radial-gradient(circle at 85% 85%,
+            rgba(6, 182, 212, 0.13),
+            transparent 30%),
+        linear-gradient(
+            135deg,
+            #f8fbff 0%,
+            #eef4ff 45%,
+            #f5f3ff 100%
+        );
+
+    color: #1e293b;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background decoration */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    width: 350px;
+    height: 350px;
+    background: rgba(59, 130, 246, 0.10);
+    top: -150px;
+    left: -120px;
+}
+
+body::after {
+    width: 400px;
+    height: 400px;
+    background: rgba(139, 92, 246, 0.10);
+    right: -170px;
+    bottom: -170px;
+}
+
+
+/* ====================================
+   FORM CARD
+==================================== */
+
+fieldset {
+    width: 100%;
+    max-width: 750px;
+
+    margin: auto;
+    padding: 45px 48px 50px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 26px;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 25px 60px rgba(30, 64, 175, 0.10),
+        0 5px 15px rgba(15, 23, 42, 0.05);
+
+    position: relative;
+    z-index: 2;
+
+    animation: formOpen 0.6s ease;
+}
+
+@keyframes formOpen {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ====================================
+   HEADING
+==================================== */
+
+legend {
+    padding: 12px 28px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1,
+        #8b5cf6
+    );
+
+    color: white;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    letter-spacing: -0.3px;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.25);
+}
+
+
+/* ====================================
+   FORM
+==================================== */
+
+form {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* ====================================
+   LABELS
+==================================== */
+
+label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ====================================
+   INPUTS
+==================================== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100% !important;
+    height: 51px;
+
+    padding: 0 16px;
+    margin-bottom: 5px;
+
+    background: rgba(248, 250, 252, 0.90);
+
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+
+    color: #1e293b;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all 0.25s ease;
+}
+
+
+/* Hover */
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
+input[type="date"]:hover,
+select:hover {
+    background: white;
+
+    border-color: #93c5fd;
+}
+
+
+/* Focus */
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    background: white;
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.10),
+        0 5px 15px rgba(59, 130, 246, 0.08);
+
+    transform: translateY(-1px);
+}
+
+
+/* Placeholder */
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* ====================================
+   SELECT
+==================================== */
+
+select {
+    cursor: pointer;
+    color: #334155;
+}
+
+select option {
+    background: white;
+    color: #1e293b;
+}
+
+
+/* ====================================
+   DATE
+==================================== */
+
+input[type="date"] {
+    color: #475569;
+}
+
+
+/* ====================================
+   FILE UPLOAD
+==================================== */
+
+input[type="file"] {
+    width: 100%;
+
+    padding: 9px;
+
+    background: #f8fbff;
+
+    border: 1px dashed #93c5fd;
+    border-radius: 12px;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+input[type="file"]:hover {
+    background: #eff6ff;
+
+    border-color: #3b82f6;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 10px 17px;
+
+    margin-right: 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #6366f1
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(59, 130, 246, 0.25);
+}
+
+
+/* ====================================
+   SUBMIT BUTTON
+==================================== */
+
+input[type="submit"] {
+    width: 100%;
+    height: 54px;
+
+    margin-top: 15px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1,
+        #8b5cf6
+    );
+
+    background-size: 200% 200%;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.25);
+
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-3px);
+
+    background-position: 100% 50%;
+
+    box-shadow:
+        0 15px 30px rgba(99, 102, 241, 0.32);
+}
+
+input[type="submit"]:active {
+    transform: scale(0.99);
+}
+
+
+/* Extra BR spacing */
+
+form br {
+    line-height: 7px;
+}
+
+
+/* ====================================
+   AUTOFILL
+==================================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1e293b;
+
+    -webkit-box-shadow:
+        0 0 0 1000px #f8fafc inset;
+}
+
+
+/* ====================================
+   RESPONSIVE
+==================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 35px 15px;
+    }
+
+    fieldset {
+        padding: 35px 23px 40px;
+
+        border-radius: 20px;
+    }
+
+    legend {
+        font-size: 20px;
+
+        padding: 10px 20px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        height: 49px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    body {
+        padding: 25px 10px;
+    }
+
+    fieldset {
+        padding: 30px 17px;
+    }
+
+    legend {
+        font-size: 18px;
+    }
+}
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Add Student</legend>
+        <form method="POST" action="{% url 'add_student' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="college">College Name:</label>
+            <input type="text" id="college" name="college" required><br><br>
+
+            <label for="city">City Name:</label>
+            <input type="text" id="city" name="city" required><br><br>
+
+            <label for="join_date">Join Date:</label>
+            <input type="date" id="join_date" name="join_date" required style="width: 95%; padding: 10px; border-radius:5px; border: 1px solid #ccc;"><br><br>
+
+            <label for="total_fees">Total Fees:</label>
+            <input type="number" id="total_fees" name="total_fees" required><br><br>
+
+            <label for="paid_fees">Paid Fees:</label>
+            <input type="number" id="paid_fees" name="paid_fees" oninput="fee()" required><br><br>
+
+            <label for="left_fees">Left Fees:</label>
+            <input type="number" id="left_fees" name="left_fees" required><br><br>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+
+            <label for="technology">Technology:</label>
+            <select name="technology" id="technology" required>
+                <option value="" disabled selected>Select Technology</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+            </select><br><br>
+
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="images/*" required><br><br>
+
+            <input type="submit" value="Add Student" onclick="return confirm('Are you sure to want to add!')">
+        </form>
+    </fieldset>
+
+    <script>
+        function fee() {
+            let total = Number(document.getElementById("total_fees").value) || 0;
+            let paid = Number(document.getElementById("paid_fees").value) || 0;
+
+            document.getElementById("left_fees").value = total - paid;
+        }
+    </script>
+</body>
+</html>

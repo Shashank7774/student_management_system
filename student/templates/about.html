@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    padding: 70px 20px;
+
+    color: #334155;
+
+    background:
+        radial-gradient(circle at 10% 15%,
+            rgba(59, 130, 246, 0.17),
+            transparent 28%),
+        radial-gradient(circle at 90% 15%,
+            rgba(139, 92, 246, 0.14),
+            transparent 28%),
+        radial-gradient(circle at 80% 90%,
+            rgba(6, 182, 212, 0.12),
+            transparent 30%),
+        linear-gradient(
+            135deg,
+            #f8fbff 0%,
+            #eef4ff 50%,
+            #f8f5ff 100%
+        );
+
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+/* ==============================
+   BACKGROUND GLOW
+============================== */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+
+    border-radius: 50%;
+    filter: blur(90px);
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    width: 420px;
+    height: 420px;
+
+    top: -170px;
+    left: -180px;
+
+    background: rgba(59, 130, 246, 0.11);
+}
+
+body::after {
+    width: 450px;
+    height: 450px;
+
+    right: -190px;
+    bottom: -180px;
+
+    background: rgba(139, 92, 246, 0.11);
+}
+
+
+/* ==============================
+   ABOUT HEADING
+============================== */
+
+h1 {
+    width: fit-content;
+
+    margin: 0 auto 45px;
+
+    text-align: center;
+
+    font-size: 46px;
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+
+    background: linear-gradient(
+        135deg,
+        #1e3a8a,
+        #2563eb,
+        #7c3aed
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    position: relative;
+
+    animation: headingEntry 0.6s ease;
+}
+
+
+/* Heading underline */
+
+h1::after {
+    content: "";
+
+    display: block;
+
+    width: 65px;
+    height: 4px;
+
+    margin: 13px auto 0;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    box-shadow:
+        0 3px 10px rgba(99, 102, 241, 0.25);
+}
+
+
+@keyframes headingEntry {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==============================
+   ABOUT CONTENT CARD
+============================== */
+
+p {
+    width: 90%;
+    max-width: 950px;
+
+    margin: 0 auto;
+
+    padding: 45px 50px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    border-radius: 26px;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 25px 60px rgba(30, 64, 175, 0.10),
+        0 5px 15px rgba(15, 23, 42, 0.05);
+
+    color: #64748b;
+
+    font-size: 16px;
+
+    line-height: 2;
+
+    text-align: justify;
+
+    letter-spacing: 0.1px;
+
+    position: relative;
+
+    animation: contentEntry 0.7s ease;
+}
+
+
+/* Gradient top border */
+
+p::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 88%;
+    height: 4px;
+
+    border-radius: 0 0 20px 20px;
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #06b6d4,
+        #8b5cf6
+    );
+}
+
+
+@keyframes contentEntry {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ==============================
+   FIRST LETTER
+============================== */
+
+p::first-letter {
+    font-size: 42px;
+    font-weight: 800;
+
+    color: #2563eb;
+
+    float: left;
+
+    line-height: 0.9;
+
+    margin-right: 7px;
+    margin-top: 7px;
+}
+
+
+/* ==============================
+   BUTTON
+============================== */
+
+button {
+    display: block;
+
+    margin: 40px auto 0;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1,
+        #8b5cf6
+    );
+
+    background-size: 200% 200%;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.25);
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background-position 0.4s ease;
+}
+
+
+/* Button Link */
+
+button a {
+    display: block;
+
+    padding: 14px 30px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 650;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* Button hover */
+
+button:hover {
+    transform: translateY(-4px);
+
+    background-position: 100% 50%;
+
+    box-shadow:
+        0 16px 32px rgba(99, 102, 241, 0.35);
+}
+
+
+button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 50px 15px;
+    }
+
+    h1 {
+        font-size: 37px;
+
+        margin-bottom: 35px;
+    }
+
+    p {
+        width: 95%;
+
+        padding: 35px 28px;
+
+        font-size: 15px;
+
+        line-height: 1.9;
+
+        text-align: left;
+
+        border-radius: 21px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 40px 10px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    p {
+        width: 100%;
+
+        padding: 30px 20px;
+
+        border-radius: 18px;
+
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    button a {
+        padding: 14px 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <h1>About Us</h1>
+    <p>What We Do We replace messy paper files with a digital system. We make it easy to store and find information.Our system
+    does these things:Central Database: We put all student details in one safe place. You can search for any student in
+    seconds.Track Grades and Attendance: Teachers can easily record daily attendance and test scores. Parents can see these
+    updates online.Manage Fees: Keep track of payments and discounts in one place.Make Reports: Turn raw data into
+    easy-to-read reports.Our Core ValuesAccuracy: We reduce human mistakes. All data is updated in real time.Security: We
+    keep student data safe. Only the right people can see it.Connection: We bring schools and homes closer. We make it easy
+    for teachers and parents to talk.Our VisionWe want to remove the hard work of school paperwork. We want to give teachers
+    more time to teach. We believe great software helps students grow and do better in school.If you want to customize this
+    text for your specific school or software, tell me:What type of school do you have (e.g., K-12, college, tutoring
+    center)?What is your company name?Do you want to sound more professional or more casual?</p>
+    
+    <button><a href="{% url 'index' %}">Back to Home</a></button>
+
+    
+</body>
+</html>

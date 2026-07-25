@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.35), transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.30), transparent 35%),
+                linear-gradient(135deg, #0f172a, #111827, #1e1b4b);
+            position: relative;
+            overflow: hidden;
+        }
+    
+        /* Decorative glowing circles */
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: 0;
+        }
+    
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: rgba(139, 92, 246, 0.20);
+            top: -100px;
+            left: -80px;
+        }
+    
+        body::after {
+            width: 350px;
+            height: 350px;
+            background: rgba(6, 182, 212, 0.16);
+            bottom: -130px;
+            right: -100px;
+        }
+    
+        form {
+            width: 100%;
+            max-width: 580px;
+            padding: 42px 45px;
+            border-radius: 28px;
+    
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+    
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+    
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    
+            position: relative;
+            z-index: 1;
+            animation: formEntry 0.6s ease;
+        }
+    
+        @keyframes formEntry {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+    
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    
+        /* Heading generated through CSS */
+        form::before {
+            content: "Edit Profile";
+            display: block;
+            text-align: center;
+            color: white;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+    
+        form::after {
+            content: "Update your personal information";
+            display: block;
+            text-align: center;
+            color: #a5b4fc;
+            font-size: 14px;
+            margin-bottom: 30px;
+            position: absolute;
+            top: 85px;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 18px;
+            margin-top: 35px;
+        }
+    
+        /* Profile image row */
+        table tr:first-child td {
+            text-align: center;
+            padding-bottom: 12px;
+        }
+    
+        img {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            object-fit: cover;
+    
+            border: 4px solid rgba(255, 255, 255, 0.85);
+    
+            box-shadow:
+                0 0 0 6px rgba(139, 92, 246, 0.25),
+                0 12px 30px rgba(0, 0, 0, 0.35);
+    
+            transition: 0.35s ease;
+        }
+    
+        img:hover {
+            transform: scale(1.06);
+            box-shadow:
+                0 0 0 7px rgba(6, 182, 212, 0.25),
+                0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+    
+        th {
+            width: 125px;
+            text-align: left;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            padding-right: 15px;
+        }
+    
+        td {
+            color: white;
+        }
+    
+        input {
+            width: 100%;
+            height: 50px;
+            padding: 0 17px;
+    
+            border-radius: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+    
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+    
+            font-size: 15px;
+            outline: none;
+    
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+            transition:
+                border 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+        }
+    
+        input::placeholder {
+            color: #94a3b8;
+        }
+    
+        input:hover {
+            background: rgba(255, 255, 255, 0.11);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+    
+        input:focus {
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.12);
+    
+            box-shadow:
+                0 0 0 4px rgba(139, 92, 246, 0.15),
+                0 7px 20px rgba(0, 0, 0, 0.15);
+    
+            transform: translateY(-1px);
+        }
+    
+        button {
+            width: 100%;
+            height: 52px;
+            margin-top: 8px;
+    
+            border: none;
+            border-radius: 14px;
+    
+            background: linear-gradient(135deg, #8b5cf6, #6366f1, #06b6d4);
+            background-size: 200% 200%;
+    
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+    
+            cursor: pointer;
+    
+            box-shadow:
+                0 12px 28px rgba(99, 102, 241, 0.35);
+    
+            transition: 0.3s ease;
+        }
+    
+        button:hover {
+            transform: translateY(-3px);
+            background-position: 100% 50%;
+    
+            box-shadow:
+                0 17px 35px rgba(99, 102, 241, 0.45);
+        }
+    
+        button:active {
+            transform: translateY(0) scale(0.98);
+        }
+    
+        /* Autofill fix */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: white;
+            -webkit-box-shadow: 0 0 0 1000px #25263e inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    
+        /* Responsive */
+        @media (max-width: 600px) {
+    
+            form {
+                padding: 35px 22px;
+                border-radius: 22px;
+            }
+    
+            form::before {
+                font-size: 26px;
+            }
+    
+            table {
+                border-spacing: 0 13px;
+            }
+    
+            th,
+            td {
+                display: block;
+                width: 100%;
+            }
+    
+            th {
+                padding-bottom: 7px;
+                padding-right: 0;
+            }
+    
+            table tr:first-child td {
+                display: table-cell;
+            }
+    
+            input {
+                height: 48px;
+            }
+        }
+        /* =========================
+   PROFILE IMAGE FILE INPUT
+========================= */
+
+input[type="file"] {
+    width: 100%;
+    height: auto;
+    padding: 8px;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px dashed rgba(165, 180, 252, 0.45);
+    border-radius: 13px;
+
+    color: #cbd5e1;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+/* Choose File Button */
+input[type="file"]::file-selector-button {
+    border: none;
+    outline: none;
+
+    padding: 10px 16px;
+    margin-right: 14px;
+
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6366f1,
+        #06b6d4
+    );
+
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.25);
+
+    transition: all 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(99, 102, 241, 0.4);
+}
+
+/* File input hover */
+input[type="file"]:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #8b5cf6;
+}
+
+/* File input focus */
+input[type="file"]:focus {
+    border-color: #06b6d4;
+
+    box-shadow:
+        0 0 0 4px rgba(6, 182, 212, 0.12),
+        0 7px 20px rgba(0, 0, 0, 0.15);
+
+    transform: none;
+}
+    </style>
+</head>
+<body>
+    <form action="{% url 'edit_profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                    <img src="{{student.image.url}}" alt="">
+                </td>
+            </tr>
+            <tr class="image-upload-row">
+                <td colspan="2">
+                    <input type="file" name="image" id="image" accept="image/*">
+                </td>
+            </tr>
+            <tr>
+                <th>Full Name</th>
+                <td><input type="text" name="name" value="{{student.name}}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input type="email" name="email" value="{{student.email}}"></td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td><input type="text" name="city" id="city" value="{{student.city}}"></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td><input type="tel" name="phone" id="phone" value="{{student.phone}}"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" onclick="return confirm('Are you sure you want to update')">Update</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

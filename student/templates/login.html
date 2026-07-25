@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.18), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.16), transparent 30%),
+                linear-gradient(135deg, #f8faff 0%, #eef2ff 50%, #f5f3ff 100%);
+            color: #1e293b;
+        }
+
+        /* =========================
+           LOGIN SECTION
+        ========================== */
+
+        .login-page {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 42px 38px;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            box-shadow:
+                0 25px 60px rgba(79, 70, 229, 0.13),
+                0 8px 25px rgba(15, 23, 42, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative glow */
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.12);
+            top: -90px;
+            right: -70px;
+        }
+
+        .login-card::after {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(168, 85, 247, 0.10);
+            bottom: -80px;
+            left: -70px;
+        }
+
+        .login-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+           ICON
+        ========================== */
+
+        .login-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 29px;
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.25);
+        }
+
+        /* =========================
+           HEADING
+        ========================== */
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header h1 {
+            font-size: 30px;
+            font-weight: 750;
+            color: #111827;
+            letter-spacing: -0.8px;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 52px;
+            padding: 0 48px 0 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .input-box input:focus {
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+        /* Icons inside inputs */
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+
+        /* Password eye */
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 17px;
+        }
+
+        .password-toggle:hover {
+            color: #4f46e5;
+        }
+
+        /* =========================
+           OPTIONS
+        ========================== */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 24px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #64748b;
+        }
+
+        .remember input {
+            accent-color: #4f46e5;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: #7c3aed;
+        }
+
+        /* =========================
+           LOGIN BUTTON
+        ========================== */
+
+        .login-btn {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 15px;
+            font-weight: 650;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.32);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =========================
+           BOTTOM LINK
+        ========================== */
+
+        .signup-link {
+            text-align: center;
+            margin-top: 27px;
+            padding-top: 22px;
+            border-top: 1px solid #e8eaf0;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .signup-link a {
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: 650;
+            margin-left: 4px;
+        }
+
+        .signup-link a:hover {
+            color: #7c3aed;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 520px) {
+
+            .login-page {
+                padding: 25px 15px;
+            }
+
+            .login-card {
+                padding: 35px 24px;
+                border-radius: 20px;
+            }
+
+            .login-header h1 {
+                font-size: 27px;
+            }
+
+            .form-options {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Your existing navbar -->
+    {% include 'navbar.html' %}
+
+
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <div class="login-content">
+
+                <!-- Login Icon -->
+                <div class="login-icon">
+                    👤
+                </div>
+
+
+                <!-- Heading -->
+                <div class="login-header">
+                    <h1>Welcome Back</h1>
+                    <p>
+                        Enter your credentials to access your account
+                    </p>
+                </div>
+
+
+                <!-- Login Form -->
+                <form method="POST" action="/login/">
+
+                    {% csrf_token %}
+
+
+                    <!-- Username -->
+                    <div class="form-group">
+
+                        <label for="username">Username</label>
+
+                        <div class="input-box">
+
+                            <input type="text" id="username" name="username" placeholder="Enter your username"
+                                autocomplete="username" required>
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">Password</label>
+
+                        <div class="input-box">
+
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                autocomplete="current-password" required>
+
+                            <button type="button" class="password-toggle" onclick="togglePassword()"
+                                aria-label="Show or hide password">
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Options -->
+                    <div class="form-options">
+
+                        <label class="remember">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+
+                        <a href="#" class="forgot-password">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Submit -->
+                    <button type="submit" class="login-btn">
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <!-- Register -->
+                <div class="signup-link">
+                    Don't have an account?
+                    <a href="#">Create Account</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         SHOW / HIDE PASSWORD
+    ========================== -->
+
+    <script>
+
+        function togglePassword() {
+
+            const password = document.getElementById("password");
+
+            if (password.type === "password") {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+
+        }
+
+    </script>
+
+
+    <!-- =========================
+         DJANGO LOGIN RESPONSE
+    ========================== -->
+
+    {% if error == "no" %}
+
+    <script>
+        alert("Login Successful");
+        window.location = "{% url 'adminhome' %}";
+    </script>
+
+    {% endif %}
+
+
+    {% if error == "yes" %}
+
+    <script>
+        alert("Invalid username or password");
+    </script>
+
+    {% endif %}
+
+
+</body>
+
+</html>

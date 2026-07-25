@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 55px 20px;
+
+    background:
+        radial-gradient(circle at 10% 15%,
+            rgba(59, 130, 246, 0.16),
+            transparent 28%),
+        radial-gradient(circle at 90% 10%,
+            rgba(139, 92, 246, 0.14),
+            transparent 30%),
+        radial-gradient(circle at 85% 90%,
+            rgba(6, 182, 212, 0.12),
+            transparent 30%),
+        linear-gradient(
+            135deg,
+            #f8fbff 0%,
+            #eef4ff 48%,
+            #f8f5ff 100%
+        );
+
+    color: #1e293b;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   BACKGROUND GLOW
+========================================== */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    width: 380px;
+    height: 380px;
+
+    top: -160px;
+    left: -150px;
+
+    background: rgba(59, 130, 246, 0.10);
+}
+
+body::after {
+    width: 430px;
+    height: 430px;
+
+    right: -190px;
+    bottom: -190px;
+
+    background: rgba(139, 92, 246, 0.10);
+}
+
+
+/* ==========================================
+   MAIN FORM CARD
+========================================== */
+
+fieldset {
+    width: 100%;
+    max-width: 950px;
+
+    margin: auto;
+    padding: 48px 48px 45px;
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.84);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 25px 65px rgba(30, 64, 175, 0.10),
+        0 5px 20px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    position: relative;
+    z-index: 2;
+
+    animation: formEntry 0.65s ease;
+}
+
+@keyframes formEntry {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ==========================================
+   EDIT STUDENT HEADING
+========================================== */
+
+legend {
+    padding: 12px 28px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1,
+        #8b5cf6
+    );
+
+    background-size: 200% 200%;
+
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 650;
+
+    letter-spacing: -0.3px;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.25);
+
+    animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* ==========================================
+   FORM GRID
+========================================== */
+
+form {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px 26px;
+
+    margin-top: 12px;
+}
+
+
+/* ==========================================
+   FORM GROUP
+========================================== */
+
+/* form-froup included because of HTML typo */
+
+.form-group,
+.form-froup {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+
+/* ==========================================
+   LABEL
+========================================== */
+
+label {
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 13.5px;
+    font-weight: 600;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* ==========================================
+   INPUT + SELECT
+========================================== */
+
+input,
+select {
+    width: 100% !important;
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+
+    background: rgba(248, 250, 252, 0.90);
+
+    color: #1e293b;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    outline: none;
+
+    transition:
+        border 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* ==========================================
+   INPUT HOVER
+========================================== */
+
+input:hover,
+select:hover {
+    border-color: #93c5fd;
+
+    background: #ffffff;
+}
+
+
+/* ==========================================
+   INPUT FOCUS
+========================================== */
+
+input:focus,
+select:focus {
+    border-color: #3b82f6;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.10),
+        0 6px 18px rgba(59, 130, 246, 0.08);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   DATE INPUT
+========================================== */
+
+input[type="date"] {
+    width: 100% !important;
+
+    padding: 0 16px !important;
+
+    border-radius: 12px !important;
+
+    border: 1px solid #dbe3ef !important;
+
+    color: #475569;
+
+    cursor: pointer;
+}
+
+input[type="date"]:focus {
+    border-color: #3b82f6 !important;
+}
+
+
+/* ==========================================
+   SELECT
+========================================== */
+
+select {
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    padding-right: 45px;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #6366f1 50%
+        ),
+        linear-gradient(
+            135deg,
+            #6366f1 50%,
+            transparent 50%
+        );
+
+    background-position:
+        calc(100% - 20px) 23px,
+        calc(100% - 15px) 23px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+}
+
+select option {
+    background: white;
+    color: #1e293b;
+}
+
+
+/* ==========================================
+   NUMBER INPUTS
+========================================== */
+
+input[type="number"] {
+    font-weight: 500;
+}
+
+
+/* Total Fees */
+
+#total_fees {
+    color: #2563eb;
+}
+
+
+/* Paid Fees */
+
+#paid_fees {
+    color: #059669;
+}
+
+
+/* Left Fees */
+
+#left_fees {
+    color: #dc2626;
+}
+
+
+/* ==========================================
+   FILE INPUT
+========================================== */
+
+input[type="file"] {
+    height: auto;
+
+    min-height: 52px;
+
+    padding: 7px;
+
+    color: #64748b;
+
+    background: #f8fbff;
+
+    border: 1px dashed #93c5fd;
+
+    cursor: pointer;
+}
+
+input[type="file"]:hover {
+    background: #eff6ff;
+
+    border-color: #3b82f6;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 10px 16px;
+
+    margin-right: 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #6366f1
+    );
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(59, 130, 246, 0.25);
+}
+
+
+/* ==========================================
+   BUTTON AREA
+========================================== */
+
+.button-box {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   UPDATE BUTTON
+========================================== */
+
+input[type="submit"] {
+    width: 270px !important;
+    height: 55px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #6366f1,
+        #8b5cf6
+    );
+
+    background-size: 200% 200%;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background-position 0.4s ease;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-3px);
+
+    background-position: 100% 50%;
+
+    box-shadow:
+        0 16px 32px rgba(99, 102, 241, 0.35);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* ==========================================
+   AUTOFILL FIX
+========================================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1e293b;
+
+    -webkit-box-shadow:
+        0 0 0 1000px #f8fafc inset;
+
+    transition:
+        background-color 5000s ease-in-out 0s;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 35px 15px;
+    }
+
+    fieldset {
+        padding: 35px 24px 38px;
+
+        border-radius: 22px;
+    }
+
+    legend {
+        padding: 10px 20px;
+
+        font-size: 21px;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+
+        gap: 19px;
+    }
+
+    .button-box {
+        grid-column: 1;
+    }
+
+    input[type="submit"] {
+        width: 100% !important;
+    }
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 450px) {
+
+    body {
+        padding: 25px 10px;
+    }
+
+    fieldset {
+        padding: 30px 17px;
+
+        border-radius: 18px;
+    }
+
+    legend {
+        font-size: 19px;
+    }
+
+    input,
+    select {
+        height: 49px;
+    }
+}
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Edit Student</legend>
+        <form method="POST" action="{% url 'edit_student' student.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required value="{{student.name}}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required value="{{student.email}}">
+            </div>
+            <div class="form-group">
+                <label for="college">College Name:</label>
+                <input type="text" id="college" name="college" required value="{{student.college}}">
+            </div>
+            <div class="form-group">
+                <label for="join_date">Join Date:</label>
+                <input type="date" id="join_date" name="join_date" required
+                    style="width: 95%; padding: 10px; border-radius:5px; border: 1px solid #ccc;" value="{{student.join_date}}">
+            </div>
+            <div class="form-group">
+                <label for="total_fees">Total Fees:</label>
+                <input type="number" id="total_fees" name="total_fees" required value="{{student.total_fees}}">
+            </div>
+            <div class="form-group">
+                <label for="paid_fees">Paid Fees:</label>
+                <input type="number" id="paid_fees" name="paid_fees" oninput="fee()" required value="{{student.paid_fees}}">
+            </div>
+            <div class="form-group">
+                <label for="left_fees">Left Fees:</label>
+                <input type="number" id="left_fees" name="left_fees" required value="{{student.left_fees}}">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required value="{{student.phone}}">
+            </div>
+            <div class="form-group">
+                <label for="technology">Technology:</label>
+                <select name="technology" id="technology" required>
+                    <option value="" disabled selected>Select Technology</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                    <option value="JavaScript">JavaScript</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>    
+            <div class="button-box">
+                <input type="submit" value="🚀 Update Student">
+            </div>
+        </form>
+    </fieldset>
+    
+    <script>
+        function fee() {
+            let f = Number(total_fees.value) - (paid_fees.value);
+            left_fees.value = f;
+        }
+    </script>
+</body>
+</html>
