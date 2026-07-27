@@ -294,4 +294,72 @@ def fee_details(request):
     return render(request,'fee_details.html',{"student":student})
 
 
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+import datetime
 
+def fee_receipt(request):
+    sid = request.session.get('student_id')
+    if sid is None:
+        return redirect('login')
+    student = Student.objects.get(id=sid)
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'attachment; filename="FeeReceipt.pdf"'
+
+    pdf = canvas.Canvas(response)
+    #Headings:-
+    pdf.setTitle("Student Fee Receipt")
+    pdf.setFont("Helvetica-Bold",22)
+    pdf.drawString(140,800,"Student Record System")
+    pdf.setFont("Helvetica",13)
+    pdf.drawString(180,780,"STUDENT FEE RECEIPT")
+    pdf.line(40,765,550,765)
+
+    #Receipt Details:-
+    receipt_no = 'SRM' + str(student.id).zfill(4)
+
+    pdf.setFont('Helvetica-Bold',12)
+    pdf.drawString(50,740,"Receipt No. : " + receipt_no)
+
+    pdf.drawString(350,740,"Date : "+datetime.datetime.now().strftime("%d-%m-%y"))
+    pdf.line(40,725,550,725)
+
+    #Student Details:-
+
+    pdf.setFont("Helvetica-Bold",12)
+    pdf.drawString(50,700,"Student Details")
+    pdf.setFont("Helvetica",13)
+    pdf.drawString(50,660,"Name : " +str(student.name))
+    pdf.drawString(50,645,"Email : " +str(student.email))
+    pdf.drawString(50,630,"Phone : " +str(student.phone))
+    pdf.drawString(50,615,"College : " +str(student.college))
+    pdf.drawString(50,600,"Course : " +str(student.tech))
+    pdf.line(40,545,550,545)
+
+    #fee Details
+    pdf.setFont("Helvetica-Bold",14)
+    pdf.drawString(50,520,"Fee Details")
+    pdf.setFont("Helvetica",12)
+    pdf.drawString(50,490,"Total Fee")
+    pdf.drawString(250,490,"Rs "+str(student.total_fees))
+    pdf.drawString(50,465,"Paid Fee")
+    pdf.drawString(250,465,"Rs "+str(student.paid_fees))
+    pdf.drawString(50,440,"Remaining Fee")
+    pdf.drawString(250,440,"Rs "+str(student.left_fees))
+
+    pdf.line(40,410,550,410)
+
+    #footer
+    pdf.setFont("Helvetica",12)
+    pdf.drawString(50,380,"This is Computer Generated Fee Receipt")
+
+    pdf.setFont("Helvetica",11)
+    pdf.drawString(395,140,"Authorized Signature")
+
+    
+
+
+    pdf.save()
+    return response
