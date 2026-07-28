@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | Admin Panel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 50px 25px;
+
+            background:
+                radial-gradient(circle at 10% 20%, rgba(88, 80, 236, 0.18), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15), transparent 30%),
+                linear-gradient(135deg, #070b14, #0d1220, #111827);
+
+            color: #fff;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 100%;
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        /* PAGE HEADING */
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+
+            background: linear-gradient(90deg,
+                    #ffffff,
+                    #c4b5fd,
+                    #818cf8);
+
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        /* FEEDBACK COUNT */
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .feedback-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 15px;
+            border-radius: 30px;
+
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+
+            color: #c7d2fe;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #818cf8;
+            box-shadow: 0 0 12px #818cf8;
+        }
+
+        /* GLASS CARD */
+
+        .table-card {
+            position: relative;
+            overflow: hidden;
+
+            background: rgba(15, 23, 42, 0.72);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 20px;
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        /* subtle glow */
+
+        .table-card::before {
+            content: "";
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            background: #6366f1;
+
+            filter: blur(140px);
+            opacity: 0.12;
+
+            top: -100px;
+            right: -100px;
+
+            pointer-events: none;
+        }
+
+        /* TABLE SCROLL */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* TABLE */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        /* TABLE HEADING */
+
+        thead {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        th {
+            padding: 18px 22px;
+
+            text-align: left;
+
+            color: #a5b4fc;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* TABLE DATA */
+
+        td {
+            padding: 20px 22px;
+
+            color: #dbe4f0;
+
+            font-size: 14px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+            transition: all 0.3s ease;
+        }
+
+        tbody tr {
+            transition: all 0.25s ease;
+        }
+
+        /* ROW HOVER */
+
+        tbody tr:hover {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        tbody tr:hover td {
+            color: #ffffff;
+        }
+
+        /* NAME */
+
+        .name {
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        /* EMAIL */
+
+        .email {
+            color: #a5b4fc;
+        }
+
+        /* SUBJECT BADGE */
+
+        .subject {
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 8px;
+
+            background: rgba(139, 92, 246, 0.12);
+
+            border: 1px solid rgba(139, 92, 246, 0.18);
+
+            color: #c4b5fd;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* MESSAGE */
+
+        .message {
+            color: #94a3b8;
+            max-width: 350px;
+            line-height: 1.6;
+        }
+
+        /* DATE */
+
+        .date {
+            color: #94a3b8;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        /* EMPTY DATA */
+
+        .empty-row:hover {
+            background: transparent;
+        }
+
+        .empty-data {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .empty-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 15px;
+
+            border-radius: 15px;
+
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+
+            font-size: 25px;
+        }
+
+        .empty-data h3 {
+            color: #e2e8f0;
+            margin-bottom: 7px;
+            font-size: 17px;
+        }
+
+        .empty-data p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* CUSTOM SCROLLBAR */
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 10px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 30px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .page-header p {
+                font-size: 13px;
+            }
+
+            .table-card {
+                border-radius: 15px;
+            }
+
+            th,
+            td {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <h1>Feedback Management</h1>
+
+            <p>
+                View and manage feedback submitted by users.
+            </p>
+
+        </div>
+
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div class="feedback-count">
+
+                <span class="dot"></span>
+
+                Feedback Records
+
+            </div>
+
+        </div>
+
+
+        <!-- TABLE CARD -->
+
+        <div class="table-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Subject</th>
+
+                            <th>Message</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for i in feedback %}
+
+                        <tr>
+
+                            <td class="name">
+                                {{ i.name }}
+                            </td>
+
+                            <td class="email">
+                                {{ i.email }}
+                            </td>
+
+                            <td>
+                                <span class="subject">
+                                    {{ i.subject }}
+                                </span>
+                            </td>
+
+                            <td class="message">
+                                {{ i.message }}
+                            </td>
+
+                            <td class="date">
+                                {{ i.date }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr class="empty-row">
+
+                            <td colspan="5" class="empty-data">
+
+                                <div class="empty-icon">
+                                    ✉
+                                </div>
+
+                                <h3>No Feedback Available</h3>
+
+                                <p>
+                                    New feedback submitted by users will appear here.
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

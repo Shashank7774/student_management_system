@@ -39,7 +39,9 @@ urlpatterns = [
     path("student_home/",student_home,name='student_home'),
     path("edit_profile/",edit_profile,name="edit_profile"),
     path("fee_details/",fee_details,name='fee_details'),
-    path("fee_receipt/",fee_receipt,name='fee_receipt')
+    path("fee_receipt/",fee_receipt,name='fee_receipt'),
+    path("view_feedback",view_feedback,name="view_feedback"),
+    path("give_feedback",give_feedback,name="give_feedback")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

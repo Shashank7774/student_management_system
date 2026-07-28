@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Give Feedback</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            font-family: 'Inter', sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            color: #1e293b;
+
+            background:
+                radial-gradient(circle at 10% 20%,
+                    rgba(99, 102, 241, 0.18),
+                    transparent 35%),
+
+                radial-gradient(circle at 90% 80%,
+                    rgba(168, 85, 247, 0.16),
+                    transparent 35%),
+
+                radial-gradient(circle at 80% 10%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 25%),
+
+                linear-gradient(135deg,
+                    #f8faff,
+                    #eef2ff,
+                    #faf5ff);
+
+            position: relative;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           BACKGROUND DECORATION
+        ========================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(99, 102, 241, 0.12);
+
+            filter: blur(80px);
+
+            top: -120px;
+            left: -100px;
+
+            pointer-events: none;
+        }
+
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(168, 85, 247, 0.12);
+
+            filter: blur(90px);
+
+            right: -100px;
+            bottom: -130px;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+
+            width: 100%;
+            max-width: 620px;
+
+            position: relative;
+            z-index: 2;
+
+            padding: 42px;
+
+            border-radius: 28px;
+
+            background: rgba(255, 255, 255, 0.76);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            border: 1px solid rgba(255, 255, 255, 0.9);
+
+            box-shadow:
+                0 30px 70px rgba(79, 70, 229, 0.13),
+                0 8px 25px rgba(15, 23, 42, 0.05);
+
+            overflow: hidden;
+        }
+
+
+        /* Gradient top line */
+
+        .container::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 5px;
+
+            background: linear-gradient(90deg,
+                    #4f46e5,
+                    #8b5cf6,
+                    #ec4899);
+        }
+
+
+        /* Decorative glow */
+
+        .container::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(124, 58, 237, 0.08);
+
+            right: -80px;
+            top: -80px;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .feedback-header {
+            text-align: center;
+
+            margin-bottom: 35px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* ICON */
+
+        .feedback-icon {
+
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background: linear-gradient(135deg,
+                    #4f46e5,
+                    #7c3aed);
+
+            color: white;
+
+            font-size: 27px;
+
+            box-shadow:
+                0 12px 30px rgba(79, 70, 229, 0.28);
+
+            transform: rotate(-3deg);
+
+            transition: 0.3s ease;
+        }
+
+
+        .feedback-icon:hover {
+            transform: rotate(3deg) scale(1.05);
+        }
+
+
+        /* HEADING */
+
+        .feedback-header h2 {
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 9px;
+
+            background: linear-gradient(135deg,
+                    #3730a3,
+                    #7c3aed,
+                    #a855f7);
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .feedback-header p {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        form {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* FORM GROUP */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+
+        /* LABEL */
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #334155;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           INPUTS
+        ========================= */
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        textarea {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+
+            background: rgba(248, 250, 252, 0.85);
+
+            color: #1e293b;
+
+            font-family: 'Inter', sans-serif;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: all 0.3s ease;
+        }
+
+
+        /* PLACEHOLDER */
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+
+        /* INPUT HOVER */
+
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        input[type="date"]:hover,
+        textarea:hover {
+
+            border-color: #c7d2fe;
+
+            background: white;
+        }
+
+
+        /* INPUT FOCUS */
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="date"]:focus,
+        textarea:focus {
+
+            border-color: #6366f1;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, 0.10),
+                0 5px 15px rgba(79, 70, 229, 0.05);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           TEXTAREA
+        ========================= */
+
+        textarea {
+
+            height: 125px;
+
+            resize: vertical;
+
+            min-height: 110px;
+            max-height: 220px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           TWO COLUMN SECTION
+        ========================= */
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           SUBMIT BUTTON
+        ========================= */
+
+        .submit-btn {
+
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 15px 20px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-family: 'Inter', sans-serif;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            color: white;
+
+            background: linear-gradient(135deg,
+                    #4f46e5,
+                    #7c3aed);
+
+            box-shadow:
+                0 10px 25px rgba(79, 70, 229, 0.28);
+
+            transition: all 0.3s ease;
+        }
+
+
+        .submit-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(79, 70, 229, 0.35);
+        }
+
+
+        .submit-btn:active {
+
+            transform: translateY(0);
+
+            box-shadow:
+                0 5px 15px rgba(79, 70, 229, 0.20);
+        }
+
+
+        /* =========================
+           SMALL BOTTOM TEXT
+        ========================= */
+
+        .privacy-text {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           MOBILE RESPONSIVE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+
+            .container {
+
+                padding: 30px 20px;
+
+                border-radius: 22px;
+            }
+
+
+            .feedback-header h2 {
+
+                font-size: 25px;
+            }
+
+
+            .feedback-icon {
+
+                width: 58px;
+                height: 58px;
+
+                font-size: 24px;
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+
+            input[type="text"],
+            input[type="email"],
+            input[type="date"],
+            textarea {
+
+                padding: 13px 14px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="feedback-header">
+
+            <div class="feedback-icon">
+                ✦
+            </div>
+
+            <h2>Give Feedback</h2>
+
+            <p>
+                Your feedback helps us improve your experience.
+                Share your thoughts and suggestions with us.
+            </p>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <form action="{% url 'give_feedback' %}" method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- NAME + EMAIL -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="name">Your Name</label>
+
+                    <input type="text" name="name" id="name" placeholder="Enter your name" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">Email Address</label>
+
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SUBJECT -->
+
+            <div class="form-group">
+
+                <label for="subject">Subject</label>
+
+                <input type="text" name="subject" id="subject" placeholder="What is your feedback about?" required>
+
+            </div>
+
+
+
+            <!-- MESSAGE -->
+
+            <div class="form-group">
+
+                <label for="message">Your Message</label>
+
+                <textarea name="message" id="message" placeholder="Write your feedback here..." required></textarea>
+
+            </div>
+
+
+
+            <!-- DATE -->
+
+            <div class="form-group">
+
+                <label for="date">Date</label>
+
+                <input type="date" name="date" id="date" required>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <input type="submit" value="Send Feedback" class="submit-btn">
+
+
+            <p class="privacy-text">
+                Thank you for taking the time to share your feedback.
+            </p>
+
+
+        </form>
+
+    </div>
+
+
+</body>
+
+</html>

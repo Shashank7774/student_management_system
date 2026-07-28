@@ -1,7 +1,7 @@
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Student
+from .models import Student, Feddback
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -363,3 +363,22 @@ def fee_receipt(request):
 
     pdf.save()
     return response
+
+
+def view_feedback(request):
+    feedback = Feddback.objects.all().order_by('date')
+    return render(request,"view_feedback.html",{"feedback":feedback})
+
+
+def give_feedback(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        date = request.POST['date']
+        Feddback.objects.create(name=name,email=email,subject=subject,message=message,date=date)
+        print('Feedback send Successfully...')
+
+
+    return render(request,"give_feedback.html")
